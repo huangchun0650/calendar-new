@@ -5,39 +5,22 @@ import './style.css';
 // import classnames from 'classnames';
 import React, { Component } from "react";
 import Sidebar from './components/Sidebar';
+import SidebarTrigger from './components/SidebarTrigger';
 import MainCalendar from './pages/MainCalendar';
 
 function Calendar() {
-  const mainPanel = React.useRef(null);
+  const [openStatus, setIsOpen] = React.useState(true);
+
   return (
-      <>
-      {/* <div className="layout">
-        <div className="sider">
-          <Sidebar/>
-        </div>
-        <div className="header">
-          header
-        </div>
-        <div className="main-panel" ref={mainPanel}>
-          <MainCalendar />
-        </div>
-      </div> */}
-      <div class="h-screen flex">
-        {/* <!-- Fixed sidebar --> */}
-        
-        <div class="bg-gray-600 w-64">
-          <Sidebar />
-        </div>
-        {/* <!-- Scroll wrapper --> */}
-        <div class="flex-1 flex overflow-hidden">
-          {/* <!-- Scrollable container --> */}
-          <div class="flex-1 overflow-y-scroll">
-            {/* <!-- Your content --> */}
-            <MainCalendar />
-          </div>
-        </div>
-      </div>
-      </>
-    )
+    <main className="">
+      <Sidebar openStatus={openStatus} openIt={setIsOpen} />
+      <MainCalendar/>
+    </main>
+    );
 }
 export default Calendar;
+
+
+{/* <div class="container mx-auto px-4 py-2 md:py-24">
+  <MainCalendar />
+</div> */}

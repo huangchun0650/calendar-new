@@ -8,6 +8,8 @@ import interactionPlugin from '@fullcalendar/interaction';
 export default class Calendar extends Component {
   render() {
     return (
+      <>
+      {/* <div classname ="bg-white rounded-lg shadow overflow-hidden"> */}
       <FullCalendar
         // ref={withFullCalendar}
         locale={locale}
@@ -133,6 +135,8 @@ export default class Calendar extends Component {
         themeSystem='bootstrap5'
         // eventContent={renderEventContent}
       />
+      {/* </div> */}
+      </>
     )
   }
 }
