@@ -20,3 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('/schedule-add', [ScheduleController::class, 'scheduleAdd'])->name('schedule-add');
+Route::post('/schedule-get', [ScheduleController::class, 'scheduleGet'])->name('schedule-get');
+Route::get('/searchTest', [ScheduleController::class, 'searchTest'])->name('test');
+
+Route::post('/hello', function () {
+    return 'Hello World';
+});

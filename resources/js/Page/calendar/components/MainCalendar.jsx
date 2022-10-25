@@ -1,6 +1,5 @@
 import React from "react";
-import FullCalendar from '@fullcalendar/react';
-import { Calendar } from "@fullcalendar/core";
+import FullCalendar, { render } from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import locale from '@fullcalendar/core/locales/zh-tw';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -9,48 +8,46 @@ import '../css/fc.css';
 import axios from "axios";
 
 export default function Calendar({ showWeekends }) {
-  var calendarEl = document.getElementById("calendar");
-  let calendar = new Calendar(calendarEl,
-    {
-      plugins:[dayGridPlugin, timeGridPlugin, interactionPlugin],
-      handleWindowResize:true,
-      weekends:showWeekends,
-      locale:locale,
-      initialView:"dayGridMonth",
-      aspectRatio: 1,
-      firstDay: 0,
-      height: '90%',
-      nowIndicator: true,
-      selectable: true,
-      selectMirror: true,
-      dayMaxEvents: true,
-      themeSystem: 'bootstrap5',
-      customButtons:{
-        customToDay: {
-          text: '今天',
-          click: function () {
-            setSelectedDay(new Date());
-          },
-        },
-      },
-      headerToolbar:{
-        left: 'prev,customToDay,next',
-        center: 'title',
-        right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear',
-      },
-    }
-  )
-  
-  return (
-    <>
-      calendar.render();
-      {/* <FullCalendar
-        // ref={withFullCalendar}
+    return (
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        // dateClick={handleDateClick()}
         handleWindowResize={true}
         weekends={showWeekends}
-        locale={locale}
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
+        initialView={"dayGridMonth"}
+        aspectRatio={1}
+        firstDay={0}
+        height={'90%'}
+        nowIndicator={true}
+        selectable={true}
+        selectMirror={true}
+        dayMaxEvents={true}
+        themeSystem={'bootstrap5'}
+        select={function addEvent(info) {
+          const eventName = prompt("新增行程");
+          let calendarApi = info.view.calendar
+
+          calendarApi.unselect() // clear date selection
+          if (eventName) {
+            axios
+              .post("api/schedule-add", {
+                start_date: info.start.valueOf(),
+                end_date: info.end.valueOf(),
+                event_name: eventName,
+              })
+              .then(() => {
+                calendarApi.addEvent({
+                  title: eventName,
+                  start: info.start,
+                  end: info.end,
+                  allDay: true,
+                })
+              })
+              .catch((error) => {
+                console.log(`新增失敗 ${error}`)
+              });
+          }
+        }}
         customButtons={{
           customToDay: {
             text: '今天',
@@ -64,38 +61,111 @@ export default function Calendar({ showWeekends }) {
           center: 'title',
           right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear',
         }}
-        aspectRatio={1}
-        firstDay={0}
-        height='90%'
-        nowIndicator={true}
-        selectable={true}
-        selectMirror={true}
-        dayMaxEvents={true}
-        dateClick={(...args) => {
-          console.log('dateClick', args);
-        }}
-        themeSystem='bootstrap5'
-        events={function getEvents(info, successCallback, failureCallback){
+        events={function getEvents(info, successCallback, failureCallback) {
+          console.log(info.end.valueOf())
           axios
-            .post("/schedule-get", {
+            .post("api/schedule-get", {
               start_date: info.start.valueOf(),
               end_date: info.end.valueOf(),
             })
             .then((response) => {
-              // 追加したイベントを削除
-              calendar.removeAllEvents();
-              // カレンダーに読み込み
+              // calendar.removeAllEvents();
               successCallback(response.data);
             })
             .catch((error) => {
-              // バリデーションエラーなど
               console.log(error)
             });
-        }} */}
-      {/* /> */}
-    </>
-  );
-}
+        }}
+      />
+    )
+  }
+
+  // var calendarEl = document.getElementById("calendar");
+//   let calendar = new Calendar(calendarEl,
+//     {
+//       plugins:[dayGridPlugin, timeGridPlugin, interactionPlugin],
+//       handleWindowResize:true,
+//       weekends:showWeekends,
+//       locale:locale,
+//       initialView:"dayGridMonth",
+//       aspectRatio: 1,
+//       firstDay: 0,
+//       height: '90%',
+//       nowIndicator: true,
+//       selectable: true,
+//       selectMirror: true,
+//       dayMaxEvents: true,
+//       themeSystem: 'bootstrap5',
+//       customButtons:{
+//         customToDay: {
+//           text: '今天',
+//           click: function () {
+//             setSelectedDay(new Date());
+//           },
+//         },
+//       },
+//       headerToolbar:{
+//         left: 'prev,customToDay,next',
+//         center: 'title',
+//         right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear',
+//       },
+//     }
+//   )
+  
+//   return (
+//     <>
+//       <FullCalendar
+//         // ref={withFullCalendar}
+//         handleWindowResize={true}
+//         weekends={showWeekends}
+//         locale={locale}
+//         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+//         initialView="dayGridMonth"
+        // customButtons={{
+        //   customToDay: {
+        //     text: '今天',
+        //     click: function () {
+        //       setSelectedDay(new Date());
+        //     },
+        //   },
+        // }}
+        // headerToolbar={{
+        //   left: 'prev,customToDay,next',
+        //   center: 'title',
+        //   right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear',
+        // }}
+//         aspectRatio={1}
+//         firstDay={0}
+//         height='90%'
+//         nowIndicator={true}
+//         selectable={true}
+//         selectMirror={true}
+//         dayMaxEvents={true}
+//         dateClick={(...args) => {
+//           console.log('dateClick', args);
+//         }}
+//         themeSystem='bootstrap5'
+//         events={function getEvents(info, successCallback, failureCallback){
+//           axios
+//             .post("/schedule-get", {
+//               start_date: info.start.valueOf(),
+//               end_date: info.end.valueOf(),
+//             })
+//             .then((response) => {
+//               // 追加したイベントを削除
+//               calendar.removeAllEvents();
+//               // カレンダーに読み込み
+//               successCallback(response.data);
+//             })
+//             .catch((error) => {
+//               // バリデーションエラーなど
+//               console.log(error)
+//             });
+//         }}
+//       />
+//     </>
+//   );
+// }
 
 // views={{
                 //   dayGridMonth: {
