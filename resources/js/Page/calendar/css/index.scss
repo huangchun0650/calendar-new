@@ -417,6 +417,13 @@
         }
       }
     }
+    .fc-sat,
+    .fc-sun {
+      color: red;
+    }
+    .fc-nonbusiness {
+      background-color: yellow;
+    }
     .fc-dayGridYear-view {
       padding-top: 0.5rem;
       & > .row {

@@ -1,26 +1,10 @@
-import '@fullcalendar/react/dist/vdom';
-import './style/index.scss';
-import { useState } from 'react';
-import './style.css';
-// import classnames from 'classnames';
-import React, { Component } from "react";
-import Sidebar from './components/Sidebar';
-import SidebarTrigger from './components/SidebarTrigger';
-import MainCalendar from './pages/MainCalendar';
+import React from "react";
+import Main from './pages/Main';
 
-function Calendar() {
-  const [openStatus, setIsOpen] = React.useState(true);
-
+export default function Calendar() {
   return (
-    <main className="">
-      <Sidebar openStatus={openStatus} openIt={setIsOpen} />
-      <MainCalendar/>
+    <main className="w-screen h-screen">
+      <Main />
     </main>
     );
 }
-export default Calendar;
-
-
-{/* <div class="container mx-auto px-4 py-2 md:py-24">
-  <MainCalendar />
-</div> */}

@@ -1,0 +1,56 @@
+.fc-view,
+.fc-view>table {
+    background: #fff;
+}
+
+.fc-time-area .fc-slats .fc-minor {
+    border: transparent;
+}
+
+
+.fc-event {
+    font-size: 1em;
+    line-height: 1;
+    border-radius: 3px;
+    border-width: 0px;
+    padding-left: 10px !important;
+    margin-top: 3px;
+    /*margin-bottom: 10px;*/
+}
+
+.tooltipevent {
+    color: rgba(0, 0, 0, 0.87);
+    font-family: Roboto, serif;
+    line-height: 22px;
+    font-size: 14px;
+    border-left: 1px solid #CECECE;
+    border-top: 1px solid #CECECE;
+    color: #747473;
+    font-size: 16px;
+    background-color: #fff;
+    cursor: default;
+    padding: 10px;
+    position: fixed;
+    z-index: 9;
+    font-family: Tahoma;
+    box-shadow: 3px 3px 3px #888;
+    opacity: 1;
+}
+
+.fc-timeline td {
+    height: 20px;
+}
+
+.fc-resource-area .fc-cell-content,
+.fc-timeline .fc-cell-text {
+    line-height: 20px;
+}
+
+.fc-ltr .fc-time-area .fc-chrono th {
+    text-align: center;
+}
+
+.fc-day-sat,
+.fc-day-sun {
+    color: red !important;
+}

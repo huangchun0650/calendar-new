@@ -1,5 +1,6 @@
 import "./bootstrap";
 import '../css/app.css'
+import '@fullcalendar/react/dist/vdom';
 
 import axios from 'axios';
 // import 'bootstrap/dist/css/bootstrap.css';

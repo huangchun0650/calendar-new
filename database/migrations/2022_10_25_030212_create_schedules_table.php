@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('schedule', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->date('start_date')->comment('開始日期');
             $table->date('end_date')->comment('結束日期');
-            $table->string('title')->comment('活動名稱');
+            $table->string('event_name')->comment('活動名稱');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule');
+        Schema::dropIfExists('schedules');
     }
 };
