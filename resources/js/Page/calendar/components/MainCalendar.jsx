@@ -62,7 +62,6 @@ export default function Calendar({ showWeekends }) {
           right: 'timeGridDay,timeGridWeek,dayGridMonth,dayGridYear',
         }}
         events={function getEvents(info, successCallback, failureCallback) {
-          console.log(info.end.valueOf())
           axios
             .post("api/schedule-get", {
               start_date: info.start.valueOf(),

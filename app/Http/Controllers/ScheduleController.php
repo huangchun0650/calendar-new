@@ -54,6 +54,14 @@ class ScheduleController extends Controller
 
     public function searchTest(Request $request)
     {
-        return Schedule::search($request->input('simpleSearch'))->get();
+        $request->validate([
+            'simpleSearch' => 'required',
+            'timeZone' => 'nullable',
+        ]);
+
+        $searchParams = $request->input('simpleSearch');
+        $timeZone = $request->input('timeZone');
+
+        return Schedule::search($searchParams)->get();
     }
 }
